@@ -12,7 +12,7 @@ class TestWidget extends StatefulWidget {
 }
 
 class _TestWidgetState extends State<TestWidget> {
-  bool flipped;
+  bool flipped = false;
 
   void flip() {
     if (!flipped) {
@@ -44,9 +44,36 @@ class _TestWidgetState extends State<TestWidget> {
 
   Widget _buildCard() {
     if (!flipped) {
-      return Text(
-        widget.verb.translation,
-        style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: CupertinoTextField(
+                  placeholder: "-",
+                ),
+              ),
+              Text('|'),
+              Expanded(
+                child: CupertinoTextField(
+                  placeholder: "-",
+                ),
+              ),
+              Text('|'),
+              Expanded(
+                child: CupertinoTextField(
+                  placeholder: "-",
+                ),
+              ),
+            ],
+          ),
+          Text(
+            widget.verb.translation,
+            style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
+          ),
+        ],
       );
     } else {
       return Text(

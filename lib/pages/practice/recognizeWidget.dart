@@ -12,7 +12,7 @@ class RecognizeWidget extends StatefulWidget {
 }
 
 class _RecognizeWidgetState extends State<RecognizeWidget> {
-  bool flipped;
+  bool flipped = false;
 
   void flip() {
     if (!flipped) {

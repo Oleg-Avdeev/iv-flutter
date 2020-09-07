@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
+import 'package:ivflutter/variables.dart' as Variables;
 import 'package:ivflutter/pages/practice/memorizeWidget.dart';
 import 'package:ivflutter/pages/practice/recognizeWidget.dart';
 import 'package:ivflutter/pages/practice/testWidget.dart';
@@ -19,20 +19,29 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
-  int index;
+  int index = -1;
+  Verb verb;
 
   void onDone() {
     setState(() {
       index = Random().nextInt(widget.maxIndex);
+      verb = widget.verbs[index];
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (verb == null || index < 0) {
+      index = Random().nextInt(widget.maxIndex);
+      verb = widget.verbs[index];
+    }
+
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildTop(),
+          SizedBox(height: 20),
           _buildPractice(),
         ],
       ),
@@ -40,11 +49,12 @@ class _PracticePageState extends State<PracticePage> {
   }
 
   Widget _buildPractice() {
-    var verb = widget.verbs[index];
-    int v = verb.value;
+    int v = verb.getValue();
 
-    if (v < 5) return MemorizeWidget(verb: verb, onDone: onDone);
-    if (v < 10) return RecognizeWidget(verb: verb, onDone: onDone);
+    if (v < Variables.RecognizeThreshold)
+      return MemorizeWidget(verb: verb, onDone: onDone);
+    if (v < Variables.TestThreshold)
+      return RecognizeWidget(verb: verb, onDone: onDone);
     return TestWidget(verb: verb, onDone: onDone);
   }
 
@@ -59,7 +69,7 @@ class _PracticePageState extends State<PracticePage> {
         ),
         SizedBox(width: 10),
         Text(
-          'x/x',
+          verb.getValue().toString() + '/' + Variables.DoneThreshold.toString(),
           style: CupertinoTheme.of(context).textTheme.navActionTextStyle,
         ),
         SizedBox(width: 10),

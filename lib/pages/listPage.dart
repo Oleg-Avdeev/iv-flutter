@@ -1,3 +1,4 @@
+import 'package:ivflutter/variables.dart' as Variables;
 import 'package:flutter/cupertino.dart';
 import '../verbs.dart';
 
@@ -73,7 +74,9 @@ class _ListPageState extends State<ListPage> {
           ],
         ),
         Spacer(),
-        Text('0/10'),
+        Text(verb.getValue().toString() +
+            '/' +
+            Variables.DoneThreshold.toString()),
       ]),
     );
   }

@@ -8,18 +8,23 @@ class Verb {
   final String iii;
   final String translation;
 
-  int value = 0;
+  int _value = 0;
 
   String getVerbs() {
     return '$i | $ii | $iii';
   }
 
   void loadValue() {
-    SharedPreferences.getInstance().then((prefs) => {value = prefs.getInt(i)});
+    SharedPreferences.getInstance().then((prefs) => {_value = prefs.getInt(i)});
   }
 
   void increaseValue() {
-    value = value + 1;
-    SharedPreferences.getInstance().then((prefs) => {prefs.setInt(i, value)});
+    _value = _value + 1;
+    SharedPreferences.getInstance().then((prefs) => {prefs.setInt(i, _value)});
+  }
+
+  int getValue() {
+    if (_value == null) return 0;
+    return _value;
   }
 }
