@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:ivflutter/homeWidget.dart';
-import 'package:ivflutter/listWidget.dart';
-import 'learnWidget.dart';
+import 'package:ivflutter/pages/homePage.dart';
+import 'package:ivflutter/pages/listPage.dart';
+import 'package:ivflutter/pages/practicePage.dart';
+import 'pages/learnPage.dart';
 import 'verbs.dart';
 
 enum Navigation {
@@ -44,16 +45,16 @@ class _AppState extends State<App> {
 
   Widget _navigate() {
     if (_navigation == Navigation.home) {
-      return HomeWidget(
+      return HomePage(
         onLearn: _navigateTo(Navigation.learn),
         onList: _navigateTo(Navigation.list),
-        // onPractice: _navigateTo(Navigation.practice),
+        onPractice: _navigateTo(Navigation.practice),
         // onSettings: _navigateTo(Navigation.settings),
       );
     }
 
     if (_navigation == Navigation.learn) {
-      return LearnWidget(
+      return LearnPage(
           verb: (_learnIndex + _globalIndex < _verbs.length)
               ? _verbs[_learnIndex + _globalIndex]
               : null,
@@ -64,9 +65,17 @@ class _AppState extends State<App> {
     }
 
     if (_navigation == Navigation.list) {
-      return ListWidget(
+      return ListPage(
         onBack: _navigateTo(Navigation.home),
         index: _learnIndex + _globalIndex,
+        verbs: _verbs,
+      );
+    }
+
+    if (_navigation == Navigation.practice) {
+      return PracticePage(
+        onBack: _navigateTo(Navigation.home),
+        maxIndex: _learnIndex + _globalIndex,
         verbs: _verbs,
       );
     }
@@ -83,7 +92,9 @@ class _AppState extends State<App> {
 
     for (var line in lines) {
       var arr = line.split("\t");
-      verbs.add(Verb(i: arr[0], ii: arr[1], iii: arr[2], translation: arr[3]));
+      var verb = Verb(i: arr[0], ii: arr[1], iii: arr[2], translation: arr[3]);
+      verb.loadValue();
+      verbs.add(verb);
     }
   }
 

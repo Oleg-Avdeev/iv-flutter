@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class HomeWidget extends StatefulWidget {
-  HomeWidget(
+class HomePage extends StatefulWidget {
+  HomePage(
       {Key key, this.onPractice, this.onSettings, this.onLearn, this.onList})
       : super(key: key);
 
@@ -11,10 +11,10 @@ class HomeWidget extends StatefulWidget {
   final Function onList;
 
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Center(

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'verbs.dart';
+import '../verbs.dart';
 
-class LearnWidget extends StatefulWidget {
-  LearnWidget(
+class LearnPage extends StatefulWidget {
+  LearnPage(
       {Key key,
       this.verb,
       this.onPressed,
@@ -18,10 +18,10 @@ class LearnWidget extends StatefulWidget {
   final int learnLength;
 
   @override
-  _LearnWidgetState createState() => _LearnWidgetState();
+  _LearnPageState createState() => _LearnPageState();
 }
 
-class _LearnWidgetState extends State<LearnWidget> {
+class _LearnPageState extends State<LearnPage> {
   @override
   Widget build(BuildContext context) {
     return Center(

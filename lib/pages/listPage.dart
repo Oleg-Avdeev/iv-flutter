@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'verbs.dart';
+import '../verbs.dart';
 
-class ListWidget extends StatefulWidget {
-  ListWidget({Key key, this.onBack, this.verbs, this.index}) : super(key: key);
+class ListPage extends StatefulWidget {
+  ListPage({Key key, this.onBack, this.verbs, this.index}) : super(key: key);
 
   final Function onBack;
   final List<Verb> verbs;
   final int index;
 
   @override
-  _ListWidgetState createState() => _ListWidgetState();
+  _ListPageState createState() => _ListPageState();
 }
 
-class _ListWidgetState extends State<ListWidget> {
+class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
