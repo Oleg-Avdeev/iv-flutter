@@ -24,7 +24,7 @@ class LearnPage extends StatefulWidget {
 class _LearnPageState extends State<LearnPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return CupertinoPageScaffold(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: _buildChildren(),
@@ -35,11 +35,12 @@ class _LearnPageState extends State<LearnPage> {
   List<Widget> _buildChildren() {
     if (widget.verb != null) {
       return <Widget>[
+        SizedBox(height: 20),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _buildTop(),
         ),
-        SizedBox(height: 20),
+        Spacer(),
         Text(
           widget.verb.getVerbs(),
           style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
@@ -48,11 +49,12 @@ class _LearnPageState extends State<LearnPage> {
           widget.verb.translation,
           style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
         ),
-        SizedBox(height: 20),
+        Spacer(),
         CupertinoButton.filled(
           onPressed: widget.onPressed,
           child: Text('Следующий'),
         ),
+        SizedBox(height: 20),
       ];
     } else {
       return <Widget>[
@@ -70,17 +72,28 @@ class _LearnPageState extends State<LearnPage> {
 
   List<Widget> _buildTop() {
     return <Widget>[
-      SizedBox(width: 10),
-      CupertinoButton.filled(
-        onPressed: widget.onBack,
-        child: Icon(CupertinoIcons.home),
+      SizedBox(
+        width: 100,
+        child: Center(
+          child: CupertinoButton(
+            onPressed: widget.onBack,
+            child: Icon(CupertinoIcons.home),
+          ),
+        ),
       ),
-      SizedBox(width: 10),
       Text(
-        widget.learnIndex.toString() + '/' + widget.learnLength.toString(),
+        "Запоминайте слова",
         style: CupertinoTheme.of(context).textTheme.navActionTextStyle,
       ),
-      SizedBox(width: 10),
+      SizedBox(
+        width: 100,
+        child: Center(
+          child: Text(
+            widget.learnIndex.toString() + '/' + widget.learnLength.toString(),
+            style: CupertinoTheme.of(context).textTheme.navActionTextStyle,
+          ),
+        ),
+      ),
     ];
   }
 }

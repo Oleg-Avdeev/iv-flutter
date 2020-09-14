@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:ivflutter/pages/homePage.dart';
 import 'package:ivflutter/pages/listPage.dart';
 import 'package:ivflutter/pages/practicePage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/learnPage.dart';
 import 'verbs.dart';
 
@@ -31,6 +32,13 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _verbs = new List<Verb>();
+
+    SharedPreferences.getInstance()
+        .then((share) => _globalIndex = share.getInt('global index') ?? 0);
+
+    SharedPreferences.getInstance()
+        .then((share) => _learnIndex = share.getInt('learn index') ?? 0);
+
     loadAsset().then((value) => setState(() {
           handleTSV(value, _verbs);
         }));
@@ -38,17 +46,15 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: _navigate(),
-    );
+    return _navigate();
   }
 
   Widget _navigate() {
     if (_navigation == Navigation.home) {
       return HomePage(
         onLearn: _navigateTo(Navigation.learn),
-        onList: _navigateTo(Navigation.list),
-        onPractice: _navigateTo(Navigation.practice),
+        onPractice: _globalIndex > 0 ? _navigateTo(Navigation.practice) : null,
+        onList: _globalIndex > 0 ? _navigateTo(Navigation.list) : null,
         // onSettings: _navigateTo(Navigation.settings),
       );
     }
@@ -107,6 +113,11 @@ class _AppState extends State<App> {
         _globalIndex += _learnCount + 1;
         _learnIndex = 0;
       }
+
+      SharedPreferences.getInstance().then((share) => {
+            share.setInt('global index', _globalIndex),
+            share.setInt('learn index', _learnIndex)
+          });
     });
   }
 

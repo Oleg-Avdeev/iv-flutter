@@ -14,13 +14,18 @@ class Verb {
     return '$i | $ii | $iii';
   }
 
-  void loadValue() {
-    SharedPreferences.getInstance().then((prefs) => {_value = prefs.getInt(i)});
+  void loadValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _value = prefs.getInt(i);
+    if (_value == null) {
+      _value = 0;
+    }
   }
 
-  void increaseValue() {
+  void increaseValue() async {
     _value = _value + 1;
-    SharedPreferences.getInstance().then((prefs) => {prefs.setInt(i, _value)});
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(i, _value);
   }
 
   int getValue() {

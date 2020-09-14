@@ -36,15 +36,8 @@ class _PracticePageState extends State<PracticePage> {
       verb = widget.verbs[index];
     }
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildTop(),
-          SizedBox(height: 20),
-          _buildPractice(),
-        ],
-      ),
+    return CupertinoPageScaffold(
+      child: _buildPractice(),
     );
   }
 
@@ -52,27 +45,40 @@ class _PracticePageState extends State<PracticePage> {
     int v = verb.getValue();
 
     if (v < Variables.RecognizeThreshold)
-      return MemorizeWidget(verb: verb, onDone: onDone);
+      return MemorizeWidget(verb: verb, onDone: onDone, topWidget: _buildTop);
     if (v < Variables.TestThreshold)
-      return RecognizeWidget(verb: verb, onDone: onDone);
-    return TestWidget(verb: verb, onDone: onDone);
+      return RecognizeWidget(verb: verb, onDone: onDone, topWidget: _buildTop);
+    return TestWidget(verb: verb, onDone: onDone, topWidget: _buildTop);
   }
 
   Widget _buildTop() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        SizedBox(width: 10),
-        CupertinoButton.filled(
-          onPressed: widget.onBack,
-          child: Icon(CupertinoIcons.home),
+        SizedBox(
+          width: 100,
+          child: Center(
+            child: CupertinoButton(
+              onPressed: widget.onBack,
+              child: Icon(CupertinoIcons.home),
+            ),
+          ),
         ),
-        SizedBox(width: 10),
         Text(
-          verb.getValue().toString() + '/' + Variables.DoneThreshold.toString(),
+          "Повторение глаголов",
           style: CupertinoTheme.of(context).textTheme.navActionTextStyle,
         ),
-        SizedBox(width: 10),
+        SizedBox(
+          width: 100,
+          child: Center(
+            child: Text(
+              verb.getValue().toString() +
+                  '/' +
+                  Variables.DoneThreshold.toString(),
+              style: CupertinoTheme.of(context).textTheme.navActionTextStyle,
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -17,34 +17,48 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _buildChildren(),
+    return CupertinoPageScaffold(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _buildChildren(),
+        ),
       ),
     );
   }
 
   List<Widget> _buildChildren() {
     return <Widget>[
-      CupertinoButton.filled(
-        onPressed: widget.onLearn,
-        child: Text('Learn'),
+      SizedBox(
+        width: 300,
+        child: CupertinoButton.filled(
+          onPressed: widget.onLearn,
+          child: Text('Учить'),
+        ),
       ),
       SizedBox(height: 20),
-      CupertinoButton.filled(
-        onPressed: widget.onPractice,
-        child: Text('Practice'),
+      SizedBox(
+        width: 300,
+        child: CupertinoButton.filled(
+          onPressed: widget.onPractice,
+          child: Text('Практиковать'),
+        ),
       ),
       SizedBox(height: 20),
-      CupertinoButton.filled(
-        onPressed: widget.onList,
-        child: Text('List'),
+      SizedBox(
+        width: 300,
+        child: CupertinoButton.filled(
+          onPressed: widget.onList,
+          child: Text('Список глаголов'),
+        ),
       ),
       SizedBox(height: 20),
-      CupertinoButton.filled(
-        onPressed: widget.onSettings,
-        child: Text('Settings'),
+      SizedBox(
+        width: 300,
+        child: CupertinoButton.filled(
+          onPressed: widget.onSettings,
+          child: Text('Настройки'),
+        ),
       ),
     ];
   }

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'iv — Learn Verbs!',
       theme: CupertinoThemeData(
-        primaryColor: Color.fromARGB(255, 119, 197, 207),
+        primaryColor: Color.fromARGB(255, 159, 137, 137),
       ),
       home: App(),
     );

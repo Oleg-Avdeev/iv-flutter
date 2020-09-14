@@ -16,23 +16,25 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          child: CupertinoButton.filled(
-            onPressed: widget.onBack,
-            child: Icon(CupertinoIcons.home),
+    return CupertinoPageScaffold(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: CupertinoButton.filled(
+              onPressed: widget.onBack,
+              child: Icon(CupertinoIcons.home),
+            ),
           ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(8),
-            children: _buildChildren(),
-          ),
-        )
-      ],
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(8),
+              children: _buildChildren(),
+            ),
+          )
+        ],
+      ),
     );
   }
 

@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import '../../verbs.dart';
 
 class RecognizeWidget extends StatefulWidget {
-  RecognizeWidget({Key key, this.verb, this.onDone}) : super(key: key);
+  RecognizeWidget({Key key, this.verb, this.onDone, this.topWidget})
+      : super(key: key);
 
   final Verb verb;
   final Function onDone;
+  final Function topWidget;
 
   @override
   _RecognizeWidgetState createState() => _RecognizeWidgetState();
@@ -20,6 +22,7 @@ class _RecognizeWidgetState extends State<RecognizeWidget> {
         flipped = true;
       });
     } else {
+      widget.verb.increaseValue();
       widget.onDone();
       flipped = false;
     }
@@ -31,12 +34,21 @@ class _RecognizeWidgetState extends State<RecognizeWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildCard(),
           SizedBox(height: 20),
+          widget.topWidget(),
+          Spacer(),
+          Text(
+            !flipped ? 'Переведите вслух:' : '',
+            style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
+          ),
+          SizedBox(height: 20),
+          _buildCard(),
+          Spacer(),
           CupertinoButton.filled(
             onPressed: flip,
-            child: Text('Следующий'),
+            child: Text(flipped ? 'Следующий' : 'Проверить'),
           ),
+          SizedBox(height: 20),
         ],
       ),
     );
